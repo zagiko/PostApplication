@@ -13,6 +13,11 @@
 		274AF6E02AA772880079152B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 274AF6DE2AA772880079152B /* Main.storyboard */; };
 		274AF6E22AA772890079152B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274AF6E12AA772890079152B /* Assets.xcassets */; };
 		274AF6E52AA772890079152B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 274AF6E32AA772890079152B /* LaunchScreen.storyboard */; };
+		274AF6ED2AA773CA0079152B /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274AF6EC2AA773CA0079152B /* Cell.swift */; };
+		274AF6EF2AA774E20079152B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274AF6EE2AA774E20079152B /* NavigationController.swift */; };
+		274AF6F12AA775E80079152B /* PostAppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274AF6F02AA775E80079152B /* PostAppService.swift */; };
+		274AF6F32AA777360079152B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274AF6F22AA777360079152B /* HomeViewController.swift */; };
+		274AF6F52AA885E40079152B /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274AF6F42AA885E40079152B /* UIView+Constraints.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		274AF6E12AA772890079152B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		274AF6E42AA772890079152B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		274AF6E62AA772890079152B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		274AF6EC2AA773CA0079152B /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		274AF6EE2AA774E20079152B /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		274AF6F02AA775E80079152B /* PostAppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAppService.swift; sourceTree = "<group>"; };
+		274AF6F22AA777360079152B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		274AF6F42AA885E40079152B /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +50,7 @@
 		274AF6CC2AA772880079152B = {
 			isa = PBXGroup;
 			children = (
+				274AF6F62AA885FD0079152B /* Extentins */,
 				274AF6D72AA772880079152B /* PostApplication */,
 				274AF6D62AA772880079152B /* Products */,
 			);
@@ -59,11 +70,24 @@
 				274AF6D82AA772880079152B /* AppDelegate.swift */,
 				274AF6DA2AA772880079152B /* SceneDelegate.swift */,
 				274AF6DC2AA772880079152B /* ViewController.swift */,
+				274AF6F22AA777360079152B /* HomeViewController.swift */,
+				274AF6EE2AA774E20079152B /* NavigationController.swift */,
+				274AF6F02AA775E80079152B /* PostAppService.swift */,
+				274AF6EC2AA773CA0079152B /* Cell.swift */,
 				274AF6DE2AA772880079152B /* Main.storyboard */,
 				274AF6E12AA772890079152B /* Assets.xcassets */,
 				274AF6E32AA772890079152B /* LaunchScreen.storyboard */,
 				274AF6E62AA772890079152B /* Info.plist */,
 			);
+			path = PostApplication;
+			sourceTree = "<group>";
+		};
+		274AF6F62AA885FD0079152B /* Extentins */ = {
+			isa = PBXGroup;
+			children = (
+				274AF6F42AA885E40079152B /* UIView+Constraints.swift */,
+			);
+			name = Extentins;
 			path = PostApplication;
 			sourceTree = "<group>";
 		};
@@ -139,8 +163,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				274AF6DD2AA772880079152B /* ViewController.swift in Sources */,
+				274AF6F12AA775E80079152B /* PostAppService.swift in Sources */,
+				274AF6ED2AA773CA0079152B /* Cell.swift in Sources */,
+				274AF6EF2AA774E20079152B /* NavigationController.swift in Sources */,
 				274AF6D92AA772880079152B /* AppDelegate.swift in Sources */,
+				274AF6F32AA777360079152B /* HomeViewController.swift in Sources */,
 				274AF6DB2AA772880079152B /* SceneDelegate.swift in Sources */,
+				274AF6F52AA885E40079152B /* UIView+Constraints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
