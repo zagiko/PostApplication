@@ -31,6 +31,8 @@ class HomeVoewController: UIViewController, UITableViewDataSource {
 
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
+        addSubviews()
+        setupConstraints()
         
     }
     
@@ -38,6 +40,18 @@ class HomeVoewController: UIViewController, UITableViewDataSource {
     @objc func sortItems() {
         
     }
+    
+    private func addSubviews() {
+        view.addSubview(tableView)
+       
+    }
+    
+    private func setupConstraints() {
+        
+        tableView.align(with: view)
+                
+    }
+    
     
     
     

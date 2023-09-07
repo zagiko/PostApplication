@@ -58,21 +58,8 @@ class DefaultCell: UITableViewCell {
         super.init(coder: aDecoder)
         
     }
-    
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        addSubviews()
-//        configureContstraints()
-//
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
-    private func addSubviews() {
 
-        contentView.addSubview(backgroundFrame)
+    private func addSubviews() {
         contentView.addSubview(stackViewCell)
 
         stackViewCell.addArrangedSubview(header)
@@ -86,8 +73,7 @@ class DefaultCell: UITableViewCell {
         stackViewCell.align(with: self)
         stackViewCell.alignTop(to: contentView.topAnchor)
         stackViewCell.alignBottom(to: contentView.bottomAnchor)
-        backgroundFrame.align(with: contentView
-        )
+        
     }
     
 }
