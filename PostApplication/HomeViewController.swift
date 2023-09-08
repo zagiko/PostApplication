@@ -34,6 +34,7 @@ class HomeVoewController: UIViewController, UITableViewDataSource {
         addSubviews()
         setupConstraints()
         
+        
     }
     
     
@@ -49,7 +50,6 @@ class HomeVoewController: UIViewController, UITableViewDataSource {
     private func setupConstraints() {
         
         tableView.align(with: view)
-                
     }
     
     
@@ -62,6 +62,9 @@ class HomeVoewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
+    
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create and return a UITableViewCell
@@ -77,6 +80,7 @@ class HomeVoewController: UIViewController, UITableViewDataSource {
            return cell
         
     }
+    
     
     
 }

@@ -9,7 +9,6 @@ import UIKit
 
 class DefaultCell: UITableViewCell {
     
-    
     lazy var stackViewCell = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -19,60 +18,119 @@ class DefaultCell: UITableViewCell {
         return stackView
     }()
     
-    lazy var header = {
-        let label = UILabel()
-        label.font = UIFont(name: "SFProDisplay-Medium", size: 17)
-        label.text = "Charlie Deets"
-        label.textColor = .black
-        label.numberOfLines = 1
-        label.textAlignment = .left
-        return label
+    lazy var stackViewDataLike = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 20
+        return stackView
     }()
     
-    lazy var textPost = {
-       let label = UILabel()
-        label.font = UIFont(name: "SFProDisplay-Medium", size: 10)
-        label.text = "Charlie Deets Charlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie Deets"
-        label.textColor = .black
-        label.numberOfLines = 2
-        label.textAlignment = .left
-        return label
+    lazy var stackViewLike = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        stackView.spacing = 4
+        return stackView
     }()
     
-    lazy var backgroundFrame =  {
-        let frame = UIView()
-        frame.backgroundColor = .black
-        frame.layer.cornerRadius = 15
+    lazy var containerView = {
+       let view = UIView()
+        return view
+    }()
     
-        return frame
-        
+    lazy var headerLabel = {
+        let headerLabel = UILabel()
+        headerLabel.font = UIFont(name: "SFProDisplay-Bold", size: 17)
+        headerLabel.text = "Charlie Deets"
+        headerLabel.textColor = .black
+        headerLabel.numberOfLines = 1
+        headerLabel.textAlignment = .left
+        return headerLabel
+    }()
+    
+    lazy var textPostLabel = {
+        let textPostLabel = UILabel()
+        textPostLabel.font = UIFont(name: "SFProDisplay-Medium", size: 12)
+        textPostLabel.text = "Charlie Deets Charlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie Deets"
+        textPostLabel.textColor = .lightGray
+        textPostLabel.numberOfLines = 2
+        textPostLabel.textAlignment = .left
+        return textPostLabel
+    }()
+    
+    lazy var likeIcon = {
+       let likeIcon = UILabel()
+        likeIcon.font = UIFont(name: "SFProDisplay-Bold", size: 12)
+        likeIcon.text = "❤️"
+        return likeIcon
+    }()
+    
+    lazy var likesAmountLabel = {
+        let likesAmountLabel = UILabel()
+        likesAmountLabel.font = UIFont(name: "SFProDisplay-Regular", size: 12)
+        likesAmountLabel.text = "2343"
+        likesAmountLabel.textColor = .lightGray
+        return likesAmountLabel
+    }()
+    
+    lazy var dateLabel = {
+        let dateLabel = UILabel()
+        dateLabel.font = UIFont(name: "SFProDisplay-Regular", size: 12)
+        dateLabel.text = "21 day ago"
+        dateLabel.textColor = .lightGray
+        dateLabel.textAlignment = .left
+        return dateLabel
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
-            
-            // Initialize your custom properties here
-        }
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        // Initialize your custom properties here
+        
+        addSubviews()
+        configureContstraints()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
     }
-
+    
     private func addSubviews() {
+        
         contentView.addSubview(stackViewCell)
-
-        stackViewCell.addArrangedSubview(header)
-        stackViewCell.addArrangedSubview(textPost)
+        
+        
+        stackViewCell.addArrangedSubview(headerLabel)
+        stackViewCell.addArrangedSubview(textPostLabel)
+        
+        stackViewCell.addArrangedSubview(stackViewLike)
+        stackViewCell.addArrangedSubview(stackViewDataLike)
+        
+        
+        stackViewLike.addArrangedSubview(likeIcon)
+        stackViewLike.addArrangedSubview(likesAmountLabel)
+//
+//        containerView.addSubview(stackViewLike)
+//        containerView.addSubview(stackViewDataLike)
+    
+        
+        stackViewDataLike.addArrangedSubview(stackViewLike)
+        stackViewDataLike.addArrangedSubview(UIView())
+        stackViewDataLike.addArrangedSubview(dateLabel)
         
         
     }
     
     
     private func configureContstraints() {
-        stackViewCell.align(with: self)
-        stackViewCell.alignTop(to: contentView.topAnchor)
-        stackViewCell.alignBottom(to: contentView.bottomAnchor)
+        
+        stackViewCell.align(with: contentView, constant: 16)
+        
+        
         
     }
     
