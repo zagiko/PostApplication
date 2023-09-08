@@ -13,7 +13,7 @@ class DefaultCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.alignment = .leading
+        stackView.alignment = .fill
         stackView.spacing = 4
         return stackView
     }()
@@ -23,7 +23,6 @@ class DefaultCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 20
         return stackView
     }()
     
