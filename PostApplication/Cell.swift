@@ -14,7 +14,7 @@ class DefaultCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 4
+        stackView.spacing = 8
         return stackView
     }()
     
@@ -36,7 +36,7 @@ class DefaultCell: UITableViewCell {
     }()
     
     lazy var containerView = {
-       let view = UIView()
+        let view = UIView()
         return view
     }()
     
@@ -61,7 +61,7 @@ class DefaultCell: UITableViewCell {
     }()
     
     lazy var likeIcon = {
-       let likeIcon = UILabel()
+        let likeIcon = UILabel()
         likeIcon.font = UIFont(name: "SFProDisplay-Bold", size: 12)
         likeIcon.text = "❤️"
         return likeIcon
@@ -83,6 +83,20 @@ class DefaultCell: UITableViewCell {
         dateLabel.textAlignment = .left
         return dateLabel
     }()
+    
+    lazy var buttonExpand = {
+        let button = UIButton()
+        button.setTitle("Expand", for: .normal)
+        button.addTarget(self, action: #selector(expandButton), for: .touchUpInside)
+        button.backgroundColor = .darkGray
+        button.titleLabel?.font = UIFont(name: "SFProDisplay-Regular", size: 12)
+        button.layer.cornerRadius = 8
+        return button
+    }()
+    
+    @objc func expandButton() {
+        
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -109,28 +123,22 @@ class DefaultCell: UITableViewCell {
         stackViewCell.addArrangedSubview(stackViewLike)
         stackViewCell.addArrangedSubview(stackViewDataLike)
         
-        
         stackViewLike.addArrangedSubview(likeIcon)
         stackViewLike.addArrangedSubview(likesAmountLabel)
-//
-//        containerView.addSubview(stackViewLike)
-//        containerView.addSubview(stackViewDataLike)
-    
         
         stackViewDataLike.addArrangedSubview(stackViewLike)
         stackViewDataLike.addArrangedSubview(UIView())
         stackViewDataLike.addArrangedSubview(dateLabel)
         
+        stackViewCell.addArrangedSubview(buttonExpand)
         
     }
     
     
     private func configureContstraints() {
-        
         stackViewCell.align(with: contentView, constant: 16)
-        
-        
-        
+        buttonExpand.alignTop(to: stackViewLike.bottomAnchor, constant: 16)
+        buttonExpand.setHeightGreaterThanOrEqualTo(constant: 32)
     }
     
 }
