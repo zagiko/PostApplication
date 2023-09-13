@@ -91,11 +91,26 @@ class DetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .white
         // Do any additional setup after loading the view.
+        addSubviews()
+        setupConstraints()
     }
     
+    private func addSubviews() {
+        view.addSubview(stackView)
+       
+    }
+    
+    private func setupConstraints() {
+        
+        stackView.align(with: view)
+    }
+    
+    
 
+    
+    
     /*
     // MARK: - Navigation
 

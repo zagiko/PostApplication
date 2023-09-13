@@ -87,9 +87,9 @@ class DefaultCell: UITableViewCell {
     lazy var buttonExpand = {
         let button = UIButton()
         button.setTitle("Expand", for: .normal)
-        button.addTarget(self, action: #selector(expandButton), for: .touchUpInside)
         button.backgroundColor = .darkGray
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Regular", size: 12)
+        button.addTarget(self, action: #selector(expandButton), for: .touchUpInside)
         button.layer.cornerRadius = 8
         return button
     }()

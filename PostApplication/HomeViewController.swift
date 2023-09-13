@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeVoewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
 //    private lazy var tableView = {
 //        let table = UITableView(frame: .zero, style: .plain)
@@ -33,7 +33,7 @@ class HomeVoewController: UIViewController, UITableViewDataSource, UITableViewDe
 //        navigationController?.setNavigationBarHidden(false, animated: true)
         title = "Title"
         
-        let rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "sort"), style: .done, target: self, action: #selector(HomeVoewController.sortItems))
+        let rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "sort"), style: .done, target: self, action: #selector(HomeViewController.sortItems))
 
 
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
@@ -89,6 +89,14 @@ class HomeVoewController: UIViewController, UITableViewDataSource, UITableViewDe
            return cell
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailsViewController = DetailsViewController()
+        self.navigationController?.pushViewController(detailsViewController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
     
     
     
