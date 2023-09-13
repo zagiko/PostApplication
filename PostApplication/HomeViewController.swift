@@ -7,18 +7,25 @@
 
 import UIKit
 
-class HomeVoewController: UIViewController, UITableViewDataSource {
+class HomeVoewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
-    private lazy var tableView = {
-        let table = UITableView(frame: .zero, style: .plain)
-        table.dataSource = self
-        return table
+//    private lazy var tableView = {
+//        let table = UITableView(frame: .zero, style: .plain)
+//        table.dataSource = self
+//        return table
+//    }()
+  
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        return tableView
     }()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         tableView.register(DefaultCell.self, forCellReuseIdentifier: "DefaultCell")
-
+        tableView.dataSource = self
+        tableView.delegate = self
         
         view.backgroundColor = .white
         
@@ -52,7 +59,9 @@ class HomeVoewController: UIViewController, UITableViewDataSource {
         tableView.align(with: view)
     }
     
-    
+    deinit {
+        print("\(self) deinit")
+    }
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
