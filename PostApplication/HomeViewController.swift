@@ -21,6 +21,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return tableView
     }()
     
+    var recivedPosts: [Post] = []
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

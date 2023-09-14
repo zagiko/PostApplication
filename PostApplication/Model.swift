@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - PoastApplication
-struct PoastApplication: Codable {
+struct PostApplicationData: Codable {
     let posts: [Post]
 }
 

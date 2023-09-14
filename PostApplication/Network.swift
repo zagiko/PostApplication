@@ -8,7 +8,7 @@
 import Foundation
 
 
-func fetchPosts() async throws -> Post {
+func fetchPosts() async throws -> PostApplicationData {
     
     let endpoint = "https://raw.githubusercontent.com/anton-natife/jsons/master/api/main.json"
     
@@ -25,9 +25,10 @@ func fetchPosts() async throws -> Post {
     
     do {
         let jsonDecoder = JSONDecoder()
-        let encoderData = try jsonDecoder.decode(Post.self, from: data)
+        let encoderData = try jsonDecoder.decode(PostApplicationData.self, from: data)
         return encoderData
     } catch {
+        print(error)
         throw postError.invalidData
     }
 }
@@ -49,6 +50,6 @@ extension Data {
             let prettyJSONString = String(data: jsonData, encoding: .utf8) else { print("Failed to read JSON Object.")
             return
         }
-//        print(prettyJSONString)
+        print(prettyJSONString)
     }
 }
