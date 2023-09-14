@@ -42,6 +42,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         addSubviews()
         setupConstraints()
         
+        Task {
+            do {
+                let recivedPost = try await fetchPosts()
+            } catch postError.invalidURL {
+                print("URL is invalid")
+            } catch postError.invalidResponce {
+                print("Responce is invalid")
+            } catch postError.invalidData {
+                print("Data is invalid")
+            }
+        }
         
     }
     
