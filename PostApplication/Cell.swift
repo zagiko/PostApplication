@@ -91,11 +91,12 @@ class DefaultCell: UITableViewCell {
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Regular", size: 12)
         button.addTarget(self, action: #selector(expandButton), for: .touchUpInside)
         button.layer.cornerRadius = 8
+        button.setTitleColor(.black, for: .highlighted)
         return button
     }()
     
     @objc func expandButton() {
-        
+        print("Button preced")
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

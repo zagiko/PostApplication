@@ -17,6 +17,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
   
     let tableView: UITableView = {
         let tableView = UITableView()
+        
         return tableView
     }()
     
@@ -26,7 +27,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.register(DefaultCell.self, forCellReuseIdentifier: "DefaultCell")
         tableView.dataSource = self
         tableView.delegate = self
-        
+        tableView.delaysContentTouches = false
         view.backgroundColor = .white
         
 //        navigationController?.title = "Title"

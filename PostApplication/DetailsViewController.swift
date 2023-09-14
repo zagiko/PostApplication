@@ -12,7 +12,8 @@ class DetailsViewController: UIViewController {
         lazy var stackView = {
             let stackView = UIStackView()
             stackView.axis = .vertical
-            stackView.alignment = .leading
+            stackView.distribution = .fill
+            stackView.alignment = .fill
             stackView.spacing = 8
             return stackView
         }()
@@ -21,7 +22,7 @@ class DetailsViewController: UIViewController {
             let stackView = UIStackView()
             stackView.axis = .horizontal
             stackView.distribution = .fill
-            stackView.alignment = .fill
+            stackView.alignment = .leading
             return stackView
         }()
         
@@ -36,9 +37,10 @@ class DetailsViewController: UIViewController {
         
         lazy var image = {
             let image = UIImageView()
-            image.tintColor = .blue
+            image.contentMode = .scaleAspectFit
+            
             return image
-        }
+        }()
         
         lazy var headerLabel = {
             let headerLabel = UILabel()
@@ -98,13 +100,45 @@ class DetailsViewController: UIViewController {
     }
     
     private func addSubviews() {
+        
+        view.addSubview(image)
         view.addSubview(stackView)
+        
+        
+//        stackView.addArrangedSubview(image)
+        
+        stackView.addArrangedSubview(headerLabel)
+        stackView.addArrangedSubview(textPostLabel)
+        
+        stackView.addArrangedSubview(stackViewLike)
+        stackView.addArrangedSubview(stackViewDataLike)
+        
+        stackViewLike.addArrangedSubview(likeIcon)
+        stackViewLike.addArrangedSubview(likesAmountLabel)
+        
+        stackViewDataLike.addArrangedSubview(stackViewLike)
+        stackViewDataLike.addArrangedSubview(UIView())
+        stackViewDataLike.addArrangedSubview(dateLabel)
+
        
     }
     
     private func setupConstraints() {
         
-        stackView.align(with: view)
+        image.alignTop(to: view.topAnchor)
+        image.alignLeading(to: view.leadingAnchor)
+        image.alignTrailing(to: view.trailingAnchor)
+
+        image.alignTop(to: view.topAnchor)
+        image.alignLeading(to: view.leadingAnchor)
+        image.alignTrailing(to: view.trailingAnchor)
+        image.setWidthAspect(ratio: 1)
+        image.setHeightAspect(ratio: 1)
+        
+        stackView.alignTop(to: image.bottomAnchor, constant: 16)
+        stackView.alignLeading(to: view.leadingAnchor, constant: 16)
+        stackView.alignTrailing(to: view.trailingAnchor, constant: 16)
+ 
     }
     
     
