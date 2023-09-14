@@ -7,6 +7,12 @@
 
 import Foundation
 
+// MARK: - PoastApplication
+struct PoastApplication: Codable {
+    let posts: [Post]
+}
+
+// MARK: - Post
 struct Post: Codable {
     let postID, timeshamp: Int
     let title, previewText: String
