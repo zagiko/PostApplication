@@ -8,22 +8,19 @@
 import UIKit
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-   
-//    private lazy var tableView = {
-//        let table = UITableView(frame: .zero, style: .plain)
-//        table.dataSource = self
-//        return table
-//    }()
-  
+    
+    //    private lazy var tableView = {
+    //        let table = UITableView(frame: .zero, style: .plain)
+    //        table.dataSource = self
+    //        return table
+    //    }()
+    
     let tableView: UITableView = {
         let tableView = UITableView()
-        
         return tableView
     }()
     
-    let recivedPosts: [Post] = []
-
-    
+    var recivedPosts: [Post] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,15 +31,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.delaysContentTouches = false
         view.backgroundColor = .white
         
-        
-        
-//        navigationController?.title = "Title"
-//        navigationController?.setNavigationBarHidden(false, animated: true)
+        //        navigationController?.title = "Title"
+        //        navigationController?.setNavigationBarHidden(false, animated: true)
         title = "Title"
         
         let rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "sort"), style: .done, target: self, action: #selector(HomeViewController.sortItems))
-
-
+        
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
         addSubviews()
@@ -50,6 +44,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         Task {
             do {
+                
+                let post = try await fetchPosts()
+                self.recivedPosts = post.posts
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
                 let recivedPost = try await fetchPosts()
             } catch postError.invalidURL {
                 print("URL is invalid")
@@ -59,11 +61,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 print("Data is invalid")
             }
         }
-        
     }
-    
-    
-
     
     
     @objc func sortItems() {
@@ -72,7 +70,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     private func addSubviews() {
         view.addSubview(tableView)
-       
+        
     }
     
     private func setupConstraints() {
@@ -90,29 +88,25 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        recivedPosts.count
         
     }
     
-    
-    
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create and return a UITableViewCell
-        var cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath) as! DefaultCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath) as! DefaultCell
         
-           
-           // Configure the cell with data
-//           cell.textLabel?.text = "Row \(indexPath.row)"
+        // Configure the cell with data
+        let postCell = recivedPosts[indexPath.row]
+        let unixTimestamp = postCell.timeshamp
+        let dateConvert = Date(timeIntervalSince1970: TimeInterval(unixTimestamp))
+        let dateConverted = DateFormatter.localizedString(from: dateConvert, dateStyle: .long, timeStyle: .none)
         
-//        cell.headerLabel.text = recivedPosts[indexPath.row].previewText
-//        cell.textPostLabel.text = recivedPosts[indexPath.row].title
-//        cell.likesAmountLabel.text = String(recivedPosts[indexPath.row].likesCount)
-//        cell.dateLabel.text = String(recivedPosts[indexPath.row].timeshamp)
-        
-        print("Cell created")
-        print(recivedPosts.count)
-           return cell
+        cell.headerLabel.text = postCell.title
+        cell.textPostLabel.text = postCell.previewText
+        cell.likesAmountLabel.text = String(postCell.likesCount)
+        cell.dateLabel.text = dateConverted
+        return cell
         
     }
     
