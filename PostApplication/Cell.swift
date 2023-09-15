@@ -135,12 +135,13 @@ class DefaultCell: UITableViewCell {
         
     }
     
-    
     private func configureContstraints() {
         stackViewCell.align(with: contentView, constant: 16)
         buttonExpand.alignTop(to: stackViewLike.bottomAnchor, constant: 16)
         buttonExpand.setHeightGreaterThanOrEqualTo(constant: 32)
     }
+    
+
     
 }
 

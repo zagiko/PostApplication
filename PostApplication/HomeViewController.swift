@@ -21,7 +21,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return tableView
     }()
     
-    var recivedPosts: [Post] = []
+    let recivedPosts: [Post] = []
+
     
     
     override func viewDidLoad() {
@@ -32,6 +33,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.delegate = self
         tableView.delaysContentTouches = false
         view.backgroundColor = .white
+        
+        
         
 //        navigationController?.title = "Title"
 //        navigationController?.setNavigationBarHidden(false, animated: true)
@@ -60,6 +63,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
+
+    
+    
     @objc func sortItems() {
         
     }
@@ -84,7 +90,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        2
+        
     }
     
     
@@ -92,15 +99,19 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create and return a UITableViewCell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath) as! DefaultCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath) as! DefaultCell
         
            
            // Configure the cell with data
 //           cell.textLabel?.text = "Row \(indexPath.row)"
-
-
-//        cell = DefaultCell.init(style: .default, reuseIdentifier: "DefaultCell")
+        
+//        cell.headerLabel.text = recivedPosts[indexPath.row].previewText
+//        cell.textPostLabel.text = recivedPosts[indexPath.row].title
+//        cell.likesAmountLabel.text = String(recivedPosts[indexPath.row].likesCount)
+//        cell.dateLabel.text = String(recivedPosts[indexPath.row].timeshamp)
+        
         print("Cell created")
+        print(recivedPosts.count)
            return cell
         
     }

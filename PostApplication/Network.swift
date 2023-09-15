@@ -18,10 +18,10 @@ func fetchPosts() async throws -> PostApplicationData {
     
     guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else { throw postError.invalidResponce }
     
-    print(data)
+//    print(data)
     let myResponce = String(data: data, encoding: .utf8)
-    print(myResponce ?? "Responce unknow")
-    data.prettyPrintJSONString()
+//    print(myResponce ?? "Responce unknow")
+//    data.prettyPrintJSONString()
     
     do {
         let jsonDecoder = JSONDecoder()
@@ -50,6 +50,6 @@ extension Data {
             let prettyJSONString = String(data: jsonData, encoding: .utf8) else { print("Failed to read JSON Object.")
             return
         }
-        print(prettyJSONString)
+//        print(prettyJSONString)
     }
 }
