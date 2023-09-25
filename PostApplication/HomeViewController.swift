@@ -15,6 +15,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     //        return table
     //    }()
     
+    
+    
     let tableView: UITableView = {
         let tableView = UITableView()
         return tableView
@@ -29,6 +31,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.dataSource = self
         tableView.delegate = self
         tableView.delaysContentTouches = false
+        tableView.rowHeight = UITableView.automaticDimension
         view.backgroundColor = .white
         
         //        navigationController?.title = "Title"
@@ -52,7 +55,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.tableView.reloadData()
                 }
                 
-                let recivedPost = try await fetchPosts()
+//                let recivedPost = try await fetchPosts()
             } catch postError.invalidURL {
                 print("URL is invalid")
             } catch postError.invalidResponce {
@@ -102,16 +105,23 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let dateConvert = Date(timeIntervalSince1970: TimeInterval(unixTimestamp))
         let dateConverted = DateFormatter.localizedString(from: dateConvert, dateStyle: .long, timeStyle: .none)
         
+        
         cell.headerLabel.text = postCell.title
         cell.textPostLabel.text = postCell.previewText
         cell.likesAmountLabel.text = String(postCell.likesCount)
         cell.dateLabel.text = dateConverted
+        cell.callOnExpand = { tableView.reloadRows(at: [indexPath], with: .automatic) }
         return cell
         
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailsViewController = DetailsViewController()
+//        let detailsViewController = DetailsViewController(with: self.recivedPosts[indexPath.row])
+        let detailsViewController = DetailsViewController(with: recivedPosts[indexPath.row].postID)
         self.navigationController?.pushViewController(detailsViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }

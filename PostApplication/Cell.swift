@@ -9,6 +9,9 @@ import UIKit
 
 class DefaultCell: UITableViewCell {
     
+    var isExpanded = false
+    var callOnExpand: (() -> Void)?
+    
     lazy var stackViewCell = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -55,7 +58,11 @@ class DefaultCell: UITableViewCell {
         textPostLabel.font = UIFont(name: "SFProDisplay-Medium", size: 12)
         textPostLabel.text = "Charlie Deets Charlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie Deets"
         textPostLabel.textColor = .lightGray
-        textPostLabel.numberOfLines = 2
+        if isExpanded {
+            textPostLabel.numberOfLines = 0
+        } else {
+            textPostLabel.numberOfLines = 2
+        }
         textPostLabel.textAlignment = .left
         return textPostLabel
     }()
@@ -86,7 +93,11 @@ class DefaultCell: UITableViewCell {
     
     lazy var buttonExpand = {
         let button = UIButton()
-        button.setTitle("Expand", for: .normal)
+        if isExpanded {
+            button.setTitle("Colapse", for: .normal)
+        } else {
+            button.setTitle("Expand", for: .normal)
+        }
         button.backgroundColor = .darkGray
         button.titleLabel?.font = UIFont(name: "SFProDisplay-Regular", size: 12)
         button.addTarget(self, action: #selector(expandButton), for: .touchUpInside)
@@ -96,7 +107,27 @@ class DefaultCell: UITableViewCell {
     }()
     
     @objc func expandButton() {
+        
+        if isExpanded {
+           isExpanded = false
+        } else {
+            isExpanded = true
+        }
+        print("IS Expand \(isExpanded)")
+        
+        if isExpanded {
+            buttonExpand.setTitle("Colapse", for: .normal)
+        } else {
+            buttonExpand.setTitle("Expand", for: .normal)
+        }
+        
+        if isExpanded {
+            textPostLabel.numberOfLines = 0
+        } else {
+            textPostLabel.numberOfLines = 2
+        }
         print("Button preced")
+        callOnExpand?()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -141,8 +172,11 @@ class DefaultCell: UITableViewCell {
         buttonExpand.setHeightGreaterThanOrEqualTo(constant: 32)
     }
     
-
-    
+//    override func prepareForReuse() {
+//        isExpanded = false
+//    }
+//
+//
 }
 
 
