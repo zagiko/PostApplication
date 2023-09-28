@@ -8,19 +8,13 @@
 import UIKit
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    //    private lazy var tableView = {
-    //        let table = UITableView(frame: .zero, style: .plain)
-    //        table.dataSource = self
-    //        return table
-    //    }()
-    
-    
-    
+ 
     let tableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
+    
+    var sortedState = false
     
     var recivedPosts: [Post] = []
     
@@ -67,7 +61,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     @objc func sortItems() {
-        
+        if sortedState {
+            sortedState = false
+        } else {
+            sortedState = true
+        }
+        if sortedState {
+            recivedPosts.sort(by: {$0.likesCount < $1.likesCount})
+            self.tableView.reloadData()
+            print(recivedPosts)
+        } else {
+            recivedPosts.sort(by: {$0.likesCount > $1.likesCount})
+            self.tableView.reloadData()
+            print(recivedPosts)
+        }
     }
     
     private func addSubviews() {
@@ -76,7 +83,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     private func setupConstraints() {
-        
         tableView.align(with: view)
     }
     
@@ -103,7 +109,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let unixTimestamp = postCell.timeshamp
         let dateConvert = Date(timeIntervalSince1970: TimeInterval(unixTimestamp))
         let dateConverted = DateFormatter.localizedString(from: dateConvert, dateStyle: .long, timeStyle: .none)
-        
         
         cell.headerLabel.text = postCell.title
         cell.textPostLabel.text = postCell.previewText

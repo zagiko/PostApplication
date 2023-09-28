@@ -144,7 +144,6 @@ class DetailsViewController: UIViewController {
                     }
                 }
                 
-                
             } catch postError.invalidURL {
                 print("URL is invalid")
             } catch postError.invalidResponce {
