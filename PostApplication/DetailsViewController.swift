@@ -15,8 +15,6 @@ class DetailsViewController: UIViewController {
     lazy var scrollView = {
         let scrollView = UIScrollView(frame: .zero)
         scrollView.backgroundColor = .white
-        //        scrollView.contentSize = stackView.bounds.size
-        //        scrollView.frame = view.bounds
         scrollView.isScrollEnabled = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
@@ -109,20 +107,16 @@ class DetailsViewController: UIViewController {
     init(with id: Int) {
         self.id = id
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-                scrollView.isScrollEnabled = true
-        
+                
         // Do any additional setup after loading the view.
         
         addSubviews()
@@ -187,15 +181,11 @@ class DetailsViewController: UIViewController {
         
         view.addSubview(scrollView)
         
-//        view.addSubview(imageDatail)
-//        view.addSubview(stackView)
-        
         scrollView.addSubview(contentView)
         
         contentView.addSubview(imageDatail)
         contentView.addSubview(stackView)
   
-        
         stackView.addArrangedSubview(headerLabel)
         stackView.addArrangedSubview(textPostLabel)
         
@@ -213,31 +203,23 @@ class DetailsViewController: UIViewController {
     
     private func setupConstraints() {
         
-        imageDatail.alignTop(to: view.safeAreaLayoutGuide.topAnchor)
-        imageDatail.alignLeading(to: view.leadingAnchor)
-        imageDatail.alignTrailing(to: view.trailingAnchor)
+        imageDatail.alignTop(to: contentView.safeAreaLayoutGuide.topAnchor)
+        imageDatail.alignLeading(to: contentView.leadingAnchor)
+        imageDatail.alignTrailing(to: contentView.trailingAnchor)
         
         imageDatail.setWidthAspect(ratio: 1)
         imageDatail.setHeightAspect(ratio: 1)
         
         stackView.alignTop(to: imageDatail.bottomAnchor, constant: 16)
-        stackView.alignLeading(to: view.leadingAnchor, constant: 16)
-        stackView.alignTrailing(to: view.trailingAnchor, constant: 16)
-        
-        //        scrollView.align(with: view)
-        
+        stackView.alignLeading(to: contentView.leadingAnchor, constant: 16)
+        stackView.alignTrailing(to: contentView.trailingAnchor, constant: 16)
+        stackView.alignBottom(to: contentView.bottomAnchor, constant: 16)
+                
         scrollView.alignTop(to: view.topAnchor)
         scrollView.alignBottom(to: view.safeAreaLayoutGuide.bottomAnchor)
         scrollView.alignLeading(to: view.leadingAnchor)
         scrollView.alignTrailing(to: view.trailingAnchor)
-        
-//        contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor).isActive = true
-//        contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor).isActive = true
-//        contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor).isActive = true
-//        contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor).isActive = true
-//        contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor).isActive = true
-
-        
+                
         contentView.alignTop(to: scrollView.topAnchor)
         contentView.alignBottom(to: scrollView.bottomAnchor)
         contentView.alignLeading(to: scrollView.leadingAnchor)
