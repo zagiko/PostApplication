@@ -13,8 +13,19 @@ class DetailsViewController: UIViewController {
     private var detailData: Post?
     
     lazy var scrollView = {
-        let scrollView = UIScrollView()
+        let scrollView = UIScrollView(frame: .zero)
+        scrollView.backgroundColor = .white
+        //        scrollView.contentSize = stackView.bounds.size
+        //        scrollView.frame = view.bounds
+        scrollView.isScrollEnabled = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
+    }()
+    
+    lazy var contentView: UIView = {
+        let contentView = UIView()
+        contentView.backgroundColor = .white
+        return contentView
     }()
     
     lazy var stackView = {
@@ -109,22 +120,14 @@ class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+                scrollView.isScrollEnabled = true
+        
         // Do any additional setup after loading the view.
+        
         addSubviews()
         setupConstraints()
-        
-        headerLabel.text = detailData?.previewText
-        
-        //        let likesAmountLabel = detailData?.likesCount
-        
-        //        guard let likesAmountLabel = detailData?.likesCount
-        //
-        //        else {
-        //            return
-        //        }
-        
-        print(likesAmountLabel)
-        
+                
         Task {
             do {
                 
@@ -141,21 +144,11 @@ class DetailsViewController: UIViewController {
                 let dateConverted = DateFormatter.localizedString(from: dateConvert, dateStyle: .long, timeStyle: .none)
                 dateLabel.text = dateConverted
                 
-                let url = URL(string: detailData.postImage!)
-                let imageData = NSData(contentsOf: url!)
-                let image = UIImage(data: imageData! as Data)
-                imageDatail.image = image
-                
-                
-                
-//                image.imageFrom(url: detailData.postImage ?? "sort")
-                        
-                
-                
-//
-//                DispatchQueue.main.async {
-//                    self.view.reloadData()
-//                }
+                DispatchQueue.main.async {
+                    if let stringURL = detailData.postImage, let url = URL(string: stringURL) {
+                        self.downloadImage(from: url)
+                    }
+                }
                 
                 
             } catch postError.invalidURL {
@@ -171,11 +164,37 @@ class DetailsViewController: UIViewController {
         print(id)
     }
     
+    
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    func downloadImage(from url: URL) {
+        print("Download Started")
+        getData(from: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            print(response?.suggestedFilename ?? url.lastPathComponent)
+            print("Download Finished")
+            // always update the UI from the main thread
+            DispatchQueue.main.async() { [weak self] in
+                self?.imageDatail.image = UIImage(data: data)
+            }
+        }
+    }
+    
+    
     private func addSubviews() {
         
-        view.addSubview(imageDatail)
-        view.addSubview(stackView)
-        //        view.addSubview(<#T##view: UIView##UIView#>)
+        view.addSubview(scrollView)
+        
+//        view.addSubview(imageDatail)
+//        view.addSubview(stackView)
+        
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(imageDatail)
+        contentView.addSubview(stackView)
+  
         
         stackView.addArrangedSubview(headerLabel)
         stackView.addArrangedSubview(textPostLabel)
@@ -190,13 +209,11 @@ class DetailsViewController: UIViewController {
         stackViewDataLike.addArrangedSubview(UIView())
         stackViewDataLike.addArrangedSubview(dateLabel)
         
-        //        scrollView.addArrangedSubview(stackView)
-        
     }
     
     private func setupConstraints() {
         
-        imageDatail.alignTop(to: view.topAnchor)
+        imageDatail.alignTop(to: view.safeAreaLayoutGuide.topAnchor)
         imageDatail.alignLeading(to: view.leadingAnchor)
         imageDatail.alignTrailing(to: view.trailingAnchor)
         
@@ -208,9 +225,27 @@ class DetailsViewController: UIViewController {
         stackView.alignTrailing(to: view.trailingAnchor, constant: 16)
         
         //        scrollView.align(with: view)
+        
+        scrollView.alignTop(to: view.topAnchor)
+        scrollView.alignBottom(to: view.safeAreaLayoutGuide.bottomAnchor)
+        scrollView.alignLeading(to: view.leadingAnchor)
+        scrollView.alignTrailing(to: view.trailingAnchor)
+        
+//        contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor).isActive = true
+//        contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor).isActive = true
+//        contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor).isActive = true
+//        contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor).isActive = true
+//        contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor).isActive = true
+
+        
+        contentView.alignTop(to: scrollView.topAnchor)
+        contentView.alignBottom(to: scrollView.bottomAnchor)
+        contentView.alignLeading(to: scrollView.leadingAnchor)
+        contentView.alignTrailing(to: scrollView.trailingAnchor)
+        contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor).isActive = true
     }
     
-
+    
     /*
      // MARK: - Navigation
      

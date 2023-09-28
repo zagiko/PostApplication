@@ -171,6 +171,12 @@ class DefaultCell: UITableViewCell {
         buttonExpand.alignTop(to: stackViewLike.bottomAnchor, constant: 16)
         buttonExpand.setHeightGreaterThanOrEqualTo(constant: 32)
     }
+  
+    func updateWithData(post: Post) {
+        
+        
+    }
+    
     
 //    override func prepareForReuse() {
 //        isExpanded = false

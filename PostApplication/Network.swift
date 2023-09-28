@@ -33,7 +33,6 @@ func fatchPostDetail(id: Int) async throws -> PostDetail  {
     }
 }
 
-
 func fetchPosts() async throws -> PostList {
     
     let endpoint = "https://raw.githubusercontent.com/anton-natife/jsons/master/api/main.json"

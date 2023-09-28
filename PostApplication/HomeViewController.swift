@@ -55,7 +55,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.tableView.reloadData()
                 }
                 
-//                let recivedPost = try await fetchPosts()
             } catch postError.invalidURL {
                 print("URL is invalid")
             } catch postError.invalidResponce {
