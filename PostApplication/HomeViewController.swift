@@ -69,11 +69,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if sortedState {
             recivedPosts.sort(by: {$0.likesCount < $1.likesCount})
             self.tableView.reloadData()
-            print(recivedPosts)
         } else {
             recivedPosts.sort(by: {$0.likesCount > $1.likesCount})
             self.tableView.reloadData()
-            print(recivedPosts)
         }
     }
     

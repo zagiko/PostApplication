@@ -107,25 +107,29 @@ class DefaultCell: UITableViewCell {
     }()
     
     @objc func expandButton() {
+        print("Tap: \()")
+//        if isExpanded {
+//           isExpanded = false
+//        } else {
+//            isExpanded = true
+//        }
+//        print("IS Expand \(isExpanded)")
         
         if isExpanded {
-           isExpanded = false
-        } else {
-            isExpanded = true
-        }
-        print("IS Expand \(isExpanded)")
-        
-        if isExpanded {
+            isExpanded = false
             buttonExpand.setTitle("Colapse", for: .normal)
-        } else {
-            buttonExpand.setTitle("Expand", for: .normal)
-        }
-        
-        if isExpanded {
             textPostLabel.numberOfLines = 0
         } else {
+            isExpanded = true
+            buttonExpand.setTitle("Expand", for: .normal)
             textPostLabel.numberOfLines = 2
         }
+//
+//        if isExpanded {
+//            textPostLabel.numberOfLines = 0
+//        } else {
+//            textPostLabel.numberOfLines = 2
+//        }
         print("Button preced")
         callOnExpand?()
     }
