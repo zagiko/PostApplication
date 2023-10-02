@@ -9,6 +9,8 @@ import UIKit
 
 class DefaultCell: UITableViewCell {
     
+    var selectedIndexPath: IndexPath?
+    
     var isExpanded = false
     var callOnExpand: (() -> Void)?
     
@@ -58,11 +60,12 @@ class DefaultCell: UITableViewCell {
         textPostLabel.font = UIFont(name: "SFProDisplay-Medium", size: 12)
         textPostLabel.text = "Charlie Deets Charlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie DeetsCharlie Deets"
         textPostLabel.textColor = .lightGray
-        if isExpanded {
-            textPostLabel.numberOfLines = 0
-        } else {
-            textPostLabel.numberOfLines = 2
-        }
+//        if isExpanded {
+//            textPostLabel.numberOfLines = 0
+//        } else {
+//            textPostLabel.numberOfLines = 2
+//        }
+        textPostLabel.numberOfLines = 2
         textPostLabel.textAlignment = .left
         return textPostLabel
     }()
@@ -107,23 +110,29 @@ class DefaultCell: UITableViewCell {
     }()
     
     @objc func expandButton() {
-        print("Tap: \()")
+ 
 //        if isExpanded {
 //           isExpanded = false
 //        } else {
 //            isExpanded = true
 //        }
 //        print("IS Expand \(isExpanded)")
+        isExpanded = !isExpanded
         
         if isExpanded {
-            isExpanded = false
+//            isExpanded = false
             buttonExpand.setTitle("Colapse", for: .normal)
             textPostLabel.numberOfLines = 0
         } else {
-            isExpanded = true
+//            isExpanded = true
             buttonExpand.setTitle("Expand", for: .normal)
             textPostLabel.numberOfLines = 2
         }
+        
+
+        
+        
+        
 //
 //        if isExpanded {
 //            textPostLabel.numberOfLines = 0
@@ -133,6 +142,20 @@ class DefaultCell: UITableViewCell {
         print("Button preced")
         callOnExpand?()
     }
+    
+    
+    func updateState() {
+        if isExpanded {
+//            isExpanded = false
+            buttonExpand.setTitle("Colapse", for: .normal)
+            textPostLabel.numberOfLines = 0
+        } else {
+//            isExpanded = true
+            buttonExpand.setTitle("Expand", for: .normal)
+            textPostLabel.numberOfLines = 2
+        }
+    }
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -172,14 +195,11 @@ class DefaultCell: UITableViewCell {
     
     private func configureContstraints() {
         stackViewCell.align(with: contentView, constant: 16)
-        buttonExpand.alignTop(to: stackViewLike.bottomAnchor, constant: 16)
+//        buttonExpand.alignTop(to: stackViewLike.bottomAnchor, constant: 16)
         buttonExpand.setHeightGreaterThanOrEqualTo(constant: 32)
     }
   
-    func updateWithData(post: Post) {
-        
-        
-    }
+ 
     
     
 //    override func prepareForReuse() {

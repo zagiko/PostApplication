@@ -8,13 +8,15 @@
 import UIKit
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
- 
+    
     let tableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
     
     var sortedState = false
+    
+    var expandedIndex: IndexPath = []
     
     var recivedPosts: [Post] = []
     
@@ -47,6 +49,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    
                 }
                 
             } catch postError.invalidURL {
@@ -108,12 +111,31 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let dateConvert = Date(timeIntervalSince1970: TimeInterval(unixTimestamp))
         let dateConverted = DateFormatter.localizedString(from: dateConvert, dateStyle: .long, timeStyle: .none)
         
+        
         cell.headerLabel.text = postCell.title
         cell.textPostLabel.text = postCell.previewText
         cell.likesAmountLabel.text = String(postCell.likesCount)
         cell.dateLabel.text = dateConverted
-        cell.callOnExpand = { tableView.reloadRows(at: [indexPath], with: .automatic) }
+        
+        cell.callOnExpand = {
+            tableView.beginUpdates()
+//            tableView.reloadRows(at: [indexPath], with: .automatic)
+            cell.updateState()
+            tableView.endUpdates()
+            
+            
+        }
+        
+        
         return cell
+        
+        
+    }
+    
+    func updateCellAtIndexPath(indexPath: IndexPath) {
+        
+        
+        
         
     }
     
@@ -122,12 +144,24 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let detailsViewController = DetailsViewController(with: self.recivedPosts[indexPath.row])
+        //        let detailsViewController = DetailsViewController(with: self.recivedPosts[indexPath.row])
         let detailsViewController = DetailsViewController(with: recivedPosts[indexPath.row].postID)
+        
+        let indexPathForReload = IndexPath(row: indexPath.row, section: 0)
+        expandedIndex = indexPathForReload
+        print(expandedIndex)
+        
         self.navigationController?.pushViewController(detailsViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
+//        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        
+//        tableView.reloadRows(at: [indexPathForReload], with: .automatic)
+        print(indexPathForReload)
+        self.tableView.reloadRows(at: [expandedIndex], with: .automatic)
+
     }
     
+
     
     
     
