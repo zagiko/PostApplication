@@ -14,10 +14,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return tableView
     }()
     
-    var sortedState = false
-    
-    var expandedIndex: IndexPath = []
-    
+    var sortedState = true
+        
     var recivedPosts: [Post] = []
     
     override func viewDidLoad() {
@@ -117,7 +115,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.likesAmountLabel.text = String(postCell.likesCount)
         cell.dateLabel.text = dateConverted
         
-        cell.callOnExpand = {
+        
+        
+        cell.callOnExpand = { [weak self, indexPath] in
+            self?.updateCellAtIndexPath(indexPath: indexPath)
+            
             tableView.beginUpdates()
 //            tableView.reloadRows(at: [indexPath], with: .automatic)
             cell.updateState()
@@ -134,8 +136,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func updateCellAtIndexPath(indexPath: IndexPath) {
         
+        guard let cell = tableView.cellForRow(at: indexPath) as? DefaultCell else { return }
         
         
+        
+        tableView.beginUpdates()
+//            tableView.reloadRows(at: [indexPath], with: .automatic)
+        cell.updateState()
+        tableView.endUpdates()
+
         
     }
     
@@ -147,17 +156,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //        let detailsViewController = DetailsViewController(with: self.recivedPosts[indexPath.row])
         let detailsViewController = DetailsViewController(with: recivedPosts[indexPath.row].postID)
         
-        let indexPathForReload = IndexPath(row: indexPath.row, section: 0)
-        expandedIndex = indexPathForReload
-        print(expandedIndex)
+        
         
         self.navigationController?.pushViewController(detailsViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
-//        self.tableView.reloadRows(at: [indexPath], with: .automatic)
-        
-//        tableView.reloadRows(at: [indexPathForReload], with: .automatic)
-        print(indexPathForReload)
-        self.tableView.reloadRows(at: [expandedIndex], with: .automatic)
+
 
     }
     
